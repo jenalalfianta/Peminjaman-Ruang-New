@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 
-class dummy_admin_user extends Seeder
+class DumyAdminUser extends Seeder
 {
     /**
      * Run the database seeds.
