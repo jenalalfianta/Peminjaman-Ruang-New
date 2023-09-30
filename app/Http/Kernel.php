@@ -14,6 +14,9 @@ class Kernel extends HttpKernel
      * @var array<int, class-string|string>
      */
     protected $middleware = [
+        //custom middleware admin
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
@@ -37,8 +40,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
 
-            //custom middleware admin
-            \App\Http\Middleware\AdminMiddleware::class,
+
         ],
 
         'api' => [
