@@ -16,6 +16,11 @@
 
 <body>
     <div class="container">
+        @if(session('success'))
+            <div class="alert alert-success mt-2">
+                {{ session('success') }}
+            </div>
+        @endif
         <h1 class="mb-4">Selamat datang, User</h1>
         <div class="card">
             <div class="card-body">
@@ -29,7 +34,7 @@
     </div>
     <div class="container mt-5">
         <!-- Konten Dashboard Pengguna -->
-    
+
         <form action="{{ route('user.logout') }}" method="POST">
             @csrf
             <button type="submit" class="btn btn-danger">Logout</button>

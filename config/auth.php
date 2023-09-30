@@ -42,10 +42,10 @@ return [
         ],
 
         //Guard untuk Admin
-        'admin' => [ 
+        'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
-        ]
+        ],
     ],
 
     /*
@@ -74,7 +74,7 @@ return [
         // Model Admin menggunakan tabel yang sama dengan model User
         'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class, 
+            'model' => App\Models\User::class,
         ],
     ],
 
