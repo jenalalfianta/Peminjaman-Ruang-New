@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PenggunaController;
+use App\Http\Controllers\Admin\RuangController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -25,10 +26,22 @@ Route::middleware(['auth', 'web', 'checkRole:user'])->group(function () {
 });
 
 Route::middleware(['auth', 'admin', 'checkRole:admin'])->group(function () {
+    // Route admin
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    // Definisikan rute lainnya untuk admin di sini
-    Route::resource('admin/users', PenggunaController::class);
+    
+    // Route manajemen user
+    Route::resource('/admin/users', PenggunaController::class)->except(['show']);
+    // Route manajemen user Batch Insert dan Search
+    Route::post('/admin/users/batchInsert', [PenggunaController::class, 'batchInsert'])->name('admin.users.batchInsert');
+    Route::get('/admin/users/search', [PenggunaController::class, 'search'])->name('admin.users.search');
 
+    // Route manajemen ruang
+    Route::resource('/admin/ruang', RuangController::class)->except(['show']);
+    // Route manajemen ruang Batch Insert dan Search
+    Route::post('/admin/ruang/batchInsert', [RuangController::class, 'batchInsert'])->name('admin.ruang.batchInsert');
+    Route::get('/admin/ruang/search', [RuangController::class, 'search'])->name('admin.ruang.search');
+
+    // Route
 });
 
 // Rute untuk menampilkan login form
