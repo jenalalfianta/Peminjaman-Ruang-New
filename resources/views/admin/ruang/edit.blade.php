@@ -33,7 +33,7 @@
                             <div class="mb-3">
                                 <label for="kode_ruangan" class="form-label">Kode Ruangan:</label>
                                 <input type="text" class="form-control" id="kode_ruangan" name="kode_ruangan"
-                                    value="{{ $ruang->kode_ruangan }}" required>
+                                    value="{{ $ruang->kode_ruangan }}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="nama_ruangan" class="form-label">Nama Ruangan:</label>

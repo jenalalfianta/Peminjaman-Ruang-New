@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('lantai_ruangan'); // Lantai Ruang
             $table->integer('kapasitas'); // Kapasitas Ruang
             $table->text('deskripsi')->nullable(); // Deskripsi Ruang (opsional, bisa kosong)
-            $table->boolean('aktif'); // Aktif atau Nonaktif (default: aktif)
+            $table->boolean('aktif'); // Aktif atau Nonaktif
             $table->timestamps();
         });
     }

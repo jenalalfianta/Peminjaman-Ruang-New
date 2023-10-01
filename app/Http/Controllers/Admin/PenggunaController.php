@@ -82,7 +82,6 @@ class PenggunaController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'password' => 'required|string|min:8',
             'role' => ['required', Rule::in(['admin', 'user'])],
             'is_active' => 'nullable|boolean',
@@ -104,9 +103,9 @@ class PenggunaController extends Controller
         $name = Str::title($request->input('name'));
 
         $user = User::findOrFail($id);
+
         $user->update([
             'name' => $name,
-            'email' => $email,
             'password' => bcrypt($request->input('password')),
             'role' => $request->input('role'),
             'is_active' => $request->has('is_active'),

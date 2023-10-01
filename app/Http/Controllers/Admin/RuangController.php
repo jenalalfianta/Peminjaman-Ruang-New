@@ -59,7 +59,6 @@ class RuangController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'kode_ruangan' => 'required|unique:ruang,kode_ruangan,'.$id,
             'nama_ruangan' => 'required',
             'lantai_ruangan' => 'required',
             'kapasitas' => 'required|integer',
@@ -72,9 +71,8 @@ class RuangController extends Controller
         }
 
         $ruang = Ruang::findOrFail($id);
-        
+
         $ruang->update([
-            'kode_ruangan' => $request->input('kode_ruangan'),
             'nama_ruangan' => $request->input('nama_ruangan'),
             'lantai_ruangan' => $request->input('lantai_ruangan'),
             'kapasitas' => $request->input('kapasitas'),

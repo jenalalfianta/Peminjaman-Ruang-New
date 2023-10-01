@@ -30,14 +30,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'verification_token'
     ];
 
-    // Tambahkan scope pencarian berdasarkan nama atau email
-    public function scopeSearch($query, $search)
-    {
-        return $query->where('name', 'like', '%' . $search . '%')
-                        ->orWhere('email', 'like', '%' . $search . '%');
-    }
-
-
     /**
      * The attributes that should be hidden for serialization.
      *

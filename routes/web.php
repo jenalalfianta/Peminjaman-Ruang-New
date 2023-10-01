@@ -1,10 +1,12 @@
 <?php
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PenggunaController;
+use App\Http\Controllers\Admin\RoomBookingAdminController;
 use App\Http\Controllers\Admin\RuangController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\User\RoomBookingUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,13 +24,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'web', 'checkRole:user'])->group(function () {
     Route::get('/user/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
-    // Definisikan rute lainnya untuk pengguna di sini
+
+    // Menampilkan formulir peminjaman
+    Route::get('/user/booking', [RoomBookingUserController::class, 'showBookingForm'])->name('user.booking.form');
+
+    // Menyimpan peminjaman ruangan
+    Route::post('/user/booking', [RoomBookingUserController::class, 'storeBooking'])->name('user.booking.store');
+
+    // Menampilkan daftar peminjaman ruangan oleh pengguna
+    Route::get('/user/bookings', [RoomBookingUserController::class, 'showBookings'])->name('user.bookings');
+
+    // Menampilkan rincian peminjaman tertentu
+    Route::get('/user/booking/{id}', [RoomBookingUserController::class, 'showBookingDetails'])->name('user.booking.details');
+
 });
 
 Route::middleware(['auth', 'admin', 'checkRole:admin'])->group(function () {
     // Route admin
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    
+
     // Route manajemen user
     Route::resource('/admin/users', PenggunaController::class)->except(['show']);
     // Route manajemen user Batch Insert dan Search
@@ -41,7 +55,9 @@ Route::middleware(['auth', 'admin', 'checkRole:admin'])->group(function () {
     Route::post('/admin/ruang/batchInsert', [RuangController::class, 'batchInsert'])->name('admin.ruang.batchInsert');
     Route::get('/admin/ruang/search', [RuangController::class, 'search'])->name('admin.ruang.search');
 
-    // Route
+    // Route manajemen room-booking
+    Route::resource('/admin/room-booking', RoomBookingAdminController::class)->except(['show']);
+
 });
 
 // Rute untuk menampilkan login form
