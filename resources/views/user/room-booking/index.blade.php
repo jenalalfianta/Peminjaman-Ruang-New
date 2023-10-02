@@ -13,12 +13,16 @@
     <div class="container mt-5">
         <h1>Daftar Peminjaman Ruangan</h1>
         <ul class="list-group mt-3">
-            @foreach($bookings as $booking)
+            @forelse($bookings as $booking)
             <li class="list-group-item">
                 Peminjaman ID: {{ $booking->id }}<br>
                 Waktu: {{ $booking->start_time }} - {{ $booking->end_time }}
             </li>
-            @endforeach
+            @empty
+            <li class="list-group-item">
+                Tidak ada peminjaman ruangan saat ini.
+            </li>
+            @endforelse
         </ul>
     </div>
 
@@ -27,3 +31,8 @@
 </body>
 
 </html>
+
+
+
+
+

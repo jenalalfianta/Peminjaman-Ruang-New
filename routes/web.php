@@ -23,11 +23,15 @@ use Illuminate\Support\Facades\Route;
 // Tempatkan rute verifikasi email di sini
 
 Route::middleware(['auth', 'web', 'checkRole:user'])->group(function () {
+    // Dashboard pengguna
     Route::get('/user/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
+    
+    // Menampilkan list peminjaman
+    Route::get('/user/booking', [RoomBookingUserController::class, 'showBookingView'])->name('user.room.booking');
 
-    // Menampilkan formulir peminjaman
-    Route::get('/user/booking', [RoomBookingUserController::class, 'showBookingForm'])->name('user.booking.form');
-
+    // Menampilkan formulir pemesanan ruangan
+    Route::get('/user/booking/create', [RoomBookingUserController::class, 'showBookingForm'])->name('user.booking.create');
+    
     // Menyimpan peminjaman ruangan
     Route::post('/user/booking', [RoomBookingUserController::class, 'storeBooking'])->name('user.booking.store');
 
@@ -35,8 +39,10 @@ Route::middleware(['auth', 'web', 'checkRole:user'])->group(function () {
     Route::get('/user/bookings', [RoomBookingUserController::class, 'showBookings'])->name('user.bookings');
 
     // Menampilkan rincian peminjaman tertentu
-    Route::get('/user/booking/{id}', [RoomBookingUserController::class, 'showBookingDetails'])->name('user.booking.details');
+    Route::get('/user/booking/{id}', [RoomBookingController::class, 'getBookingDetails'])->name('user.booking.details');
 
+    // Rute untuk pencarian ruangan
+    Route::get('/user/rooms/search', [RoomSearchController::class, 'searchRooms'])->name('user.rooms.search');
 });
 
 Route::middleware(['auth', 'admin', 'checkRole:admin'])->group(function () {

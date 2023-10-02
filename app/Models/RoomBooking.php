@@ -31,7 +31,7 @@ class RoomBooking extends Model
     // Relasi dengan Room
     public function room()
     {
-        return $this->belongsTo(Room::class, 'room_id');
+        return $this->belongsTo(Ruang::class, 'kode_ruangan');
     }
 
     // Relasi dengan BookingRoom
