@@ -32,11 +32,19 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+        // Periksa apakah email sudah terdaftar
+        $existingUser = User::where('email', $request->email)->first();
+
+        if ($existingUser) {
+            // Email sudah terdaftar, kembalikan pesan error ke halaman pendaftaran
+            return redirect('/register')->withErrors(['email' => 'Email sudah terdaftar. Silakan coba dengan email lain.'])->withInput();
+        }
+
         // Validasi data registrasi
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users|max:255',
-            'password' => 'required|string|min:8',
+            'email' => 'required|email|unique:users|max:255|confirmed', // Konfirmasi email
+            'password' => 'required|string|min:8|confirmed', // Konfirmasi password
         ]);
 
         if ($validator->fails()) {
@@ -66,7 +74,7 @@ class RegisterController extends Controller
         // Kirim notifikasi email verifikasi langsung tanpa variabel $verificationLink
         $user->notify(new VerifyEmailNotification($token));
 
-        return redirect('/register')->with('success', 'Registration successful. Please verify your email.');
+        return redirect('/register')->with('success', 'Registrasi berhasil. Silakan verifikasi email Anda.');
     }
 
     public function verifyEmail($token)
@@ -80,15 +88,15 @@ class RegisterController extends Controller
                 // Login otomatis setelah verifikasi
                 Auth::login($user);
 
-                return redirect()->route('user.dashboard')->with('success', 'Email verified successfully and you are now logged in.');
+                return redirect()->route('user.dashboard')->with('success', 'Email berhasil diverifikasi dan Anda sekarang sudah masuk.');
             }
 
             // Redirect ke halaman gagal verifikasi email jika diperlukan
-            return redirect()->route('register')->with('error', 'Email verification failed.');
+            return redirect()->route('register')->with('error', 'EVerifikasi email gagal. Mohon periksa kembali tautan verifikasi Anda.');
         }
 
         // Redirect jika token tidak valid
-        return redirect()->route('register')->with('error', 'Invalid verification token.');
+        return redirect()->route('register')->with('error', 'Token verifikasi tidak valid.');
     }
 
 }
