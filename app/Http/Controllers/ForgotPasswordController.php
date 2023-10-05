@@ -40,12 +40,11 @@ class ForgotPasswordController extends Controller
     {
         $request->validate([
             'token' => 'required',
-            'email' => 'required|email',
             'password' => 'required|confirmed|min:8', // Add your password validation rules here
         ]);
-
+    
         $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
+            $request->only('token', 'password', 'password_confirmation'),
             function ($user, $password) {
                 $user->forceFill([
                     'password' => bcrypt($password),
@@ -53,10 +52,10 @@ class ForgotPasswordController extends Controller
                 ])->save();
             }
         );
-
+    
         return $status === Password::PASSWORD_RESET
             ? redirect()->route('login')->with('status', __($status))
-            : back()->withErrors(['email' => [__($status)]]);
+            : back()->withErrors(['password' => [__($status)]]);
     }
 
 }

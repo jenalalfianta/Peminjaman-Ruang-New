@@ -41,6 +41,11 @@
                                         <input type="password" class="form-control form-control-user"
                                             id="exampleInputPasswordConfirm" placeholder="Confirm Password" name="password_confirmation" required autocomplete="new-password">
                                     </div>
+                                    @if(session('status'))
+                                        <div class="alert alert-success mt-2" role="alert">
+                                            {{ session('status') }}
+                                        </div>
+                                    @endif
                                     <button type="submit" class="btn btn-primary btn-user btn-block">
                                         Reset Password
                                     </button>

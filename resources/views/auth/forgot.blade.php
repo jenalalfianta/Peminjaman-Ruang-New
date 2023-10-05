@@ -18,14 +18,14 @@
 
             <!-- Menampilkan pesan sukses -->
             @if(session('success'))
-                <div class="alert alert-success">
+                <div class="alert alert-success text-center">
                     {{ session('success') }}
                 </div>
             @endif
 
             <!-- Menampilkan pesan error -->
             @if(session('error'))
-                <div class="alert alert-danger">
+                <div class="alert alert-danger text-center">
                     {{ session('error') }}
                 </div>
             @endif

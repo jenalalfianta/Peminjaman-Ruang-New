@@ -35,34 +35,44 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
+    
         // Jika validasi gagal, kembalikan pengguna ke halaman login dengan pesan error
         if ($validator->fails()) {
             return redirect()->route('login')
                 ->withErrors($validator)
                 ->withInput();
         }
-
+    
         // Cek apakah percobaan login melebihi batas, jika ya, kirimkan pesan kesalahan
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
             return $this->sendLockoutResponse($request);
         }
-
+    
         // Coba melakukan autentikasi
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            // Jika berhasil, arahkan pengguna ke halaman dashboard
-            if (Auth::user()->role === 'admin') {
-                return redirect()->route('admin.dashboard');
+            // Periksa apakah pengguna aktif dan email telah diverifikasi
+            $user = Auth::user();
+            if ($user->is_active && $user->email_verified_at) {
+                // Jika berhasil dan akun aktif, arahkan pengguna ke halaman dashboard
+                if ($user->role === 'admin') {
+                    return redirect()->route('admin.dashboard');
+                } else {
+                    return redirect()->route('user.dashboard');
+                }
             } else {
-                return redirect()->route('user.dashboard');
+                // Jika akun tidak aktif atau email belum diverifikasi, kembalikan pesan error
+                Auth::logout(); // Logout pengguna jika akun tidak aktif atau email belum diverifikasi
+                return redirect()->route('login')
+                    ->withErrors(['email' => 'Akun tidak aktif atau email belum diverifikasi. Silakan hubungi admin.'])
+                    ->withInput();
             }
         }
-
+    
         // Jika autentikasi gagal, tambahkan catatan percobaan login
         $this->incrementLoginAttempts($request);
-
+    
         // Jika autentikasi gagal, kembalikan pengguna ke halaman login dengan pesan error kredensial tidak valid
         return redirect()->route('login')
             ->withErrors(['email' => 'Kredensial tidak valid.'])
