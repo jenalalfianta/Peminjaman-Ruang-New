@@ -11,14 +11,20 @@
         rel="stylesheet">
     <link href="{{ asset('assets/template/sbadmin2/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <style>
-        {{ isset($style) ? $style : '' }}
+        @yield('style');
     </style>
 </head>
 
 <body class="bg-gradient-light">
-
     <!-- ... Konten dari halaman -->
     @guest
+        <!-- Tampilkan pesan kesalahan jika ada -->
+        @if($errors->has('error'))
+        <div class="alert alert-danger mt-3">
+            {{ $errors->first('error') }}
+        </div>
+        @endif
+
         @yield('content')
     @else
         <!-- Sidebar -->
@@ -47,6 +53,7 @@
         </div>
         <!-- End of Content Wrapper -->
     @endguest
+    <!-- ...script tags lainnya -->
 
     <!-- Bootstrap core JavaScript -->
     <script src="{{ asset('assets/template/sbadmin2/vendor/jquery/jquery.min.js') }}"></script>

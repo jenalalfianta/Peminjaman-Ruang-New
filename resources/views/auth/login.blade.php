@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck" name="remember">
                                             <label class="custom-control-label" for="customCheck">Ingat Saya</label>
                                         </div>
                                     </div>
@@ -56,7 +56,7 @@
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="#">Lupa Password?</a>
+                                    <a class="small" href="{{ route('password.request') }}">Lupa Password?</a>
                                 </div>
                                 <div class="text-center">
                                     <a class="small" href="{{ route('register') }}">Buat Akun!</a>

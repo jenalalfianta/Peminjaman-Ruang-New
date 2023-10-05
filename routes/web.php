@@ -3,6 +3,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PenggunaController;
 use App\Http\Controllers\Admin\RoomBookingAdminController;
 use App\Http\Controllers\Admin\RuangController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -86,3 +87,17 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 // Rute Verifikasi Email
 Route::get('/verify-email/{token}', [RegisterController::class, 'verifyEmail']);
+
+// Rute untuk menampilkan formulir lupa password
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+
+// Rute untuk mengirim email reset password
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+// Rute untuk menampilkan formulir reset password
+Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
+
+// Rute untuk menyimpan perubahan password setelah reset
+Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
+
+Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
