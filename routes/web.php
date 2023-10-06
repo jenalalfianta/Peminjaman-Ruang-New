@@ -21,7 +21,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Tempatkan rute verifikasi email di sini
+// defualt route /
+Route::get('/', function () {
+    return redirect('/login');
+});
 
 Route::middleware(['auth', 'web', 'checkRole:user'])->group(function () {
     // Dashboard pengguna

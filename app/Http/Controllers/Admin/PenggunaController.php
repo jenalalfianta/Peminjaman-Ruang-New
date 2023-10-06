@@ -82,7 +82,7 @@ class PenggunaController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'password' => 'required|string|min:8',
+            'password' => 'nullable|string|min:8',
             'role' => ['required', Rule::in(['admin', 'user'])],
             'is_active' => 'nullable|boolean',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -91,22 +91,30 @@ class PenggunaController extends Controller
             'organization' => 'nullable|string|max:255',
             'job_title' => 'nullable|string|max:255',
         ]);
-
+    
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
+    
         // Ubah email menjadi lowercase
         $email = Str::lower($request->input('email'));
-
+    
         // Ubah nama menjadi Title Case
         $name = Str::title($request->input('name'));
-
+    
         $user = User::findOrFail($id);
-
+    
+        // Periksa apakah kolom password diisi atau tidak
+        if ($request->has('password')) {
+            $password = bcrypt($request->input('password'));
+        } else {
+            // Jika tidak diisi, gunakan password lama
+            $password = $user->password;
+        }
+    
         $user->update([
             'name' => $name,
-            'password' => bcrypt($request->input('password')),
+            'password' => $password,
             'role' => $request->input('role'),
             'is_active' => $request->has('is_active'),
             'phone_number' => $request->input('phone_number'),
@@ -114,7 +122,7 @@ class PenggunaController extends Controller
             'organization' => $request->input('organization'),
             'job_title' => $request->input('job_title'),
         ]);
-
+    
         return redirect()->route('users.index')->with('success', 'Pengguna berhasil diperbarui.');
     }
 
