@@ -21,33 +21,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+
+//////////////////////////custom//////////////////////////////////////////////
+
+// Rute untuk mengakses foto pengguna yang disimpan secara privat
+Route::get('/user/photo/{filename}', [UserController::class, 'getPhoto'])->name('user.photo');
+
 // defualt route /
 Route::get('/', function () {
     return redirect('/login');
 });
 
+
+//////////////////////////user//////////////////////////////////////////////
+
 Route::middleware(['auth', 'web', 'checkRole:user'])->group(function () {
     // Dashboard pengguna
     Route::get('/user/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
-    
-    // Menampilkan list peminjaman
-    Route::get('/user/booking', [RoomBookingUserController::class, 'showBookingView'])->name('user.room.booking');
 
-    // Menampilkan formulir pemesanan ruangan
-    Route::get('/user/booking/create', [RoomBookingUserController::class, 'showBookingForm'])->name('user.booking.create');
-    
-    // Menyimpan peminjaman ruangan
-    Route::post('/user/booking', [RoomBookingUserController::class, 'storeBooking'])->name('user.booking.store');
-
-    // Menampilkan daftar peminjaman ruangan oleh pengguna
-    Route::get('/user/bookings', [RoomBookingUserController::class, 'showBookings'])->name('user.bookings');
-
-    // Menampilkan rincian peminjaman tertentu
-    Route::get('/user/booking/{id}', [RoomBookingController::class, 'getBookingDetails'])->name('user.booking.details');
-
-    // Rute untuk pencarian ruangan
-    Route::get('/user/rooms/search', [RoomSearchController::class, 'searchRooms'])->name('user.rooms.search');
 });
+
+
+//////////////////////////admin//////////////////////////////////////////////
 
 Route::middleware(['auth', 'admin', 'checkRole:admin'])->group(function () {
     // Route admin
@@ -55,20 +52,18 @@ Route::middleware(['auth', 'admin', 'checkRole:admin'])->group(function () {
 
     // Route manajemen user
     Route::resource('/admin/users', PenggunaController::class)->except(['show']);
-    // Route manajemen user Batch Insert dan Search
-    Route::post('/admin/users/batchInsert', [PenggunaController::class, 'batchInsert'])->name('admin.users.batchInsert');
+    // Route manajemen user Search
     Route::get('/admin/users/search', [PenggunaController::class, 'search'])->name('admin.users.search');
 
     // Route manajemen ruang
     Route::resource('/admin/ruang', RuangController::class)->except(['show']);
-    // Route manajemen ruang Batch Insert dan Search
-    Route::post('/admin/ruang/batchInsert', [RuangController::class, 'batchInsert'])->name('admin.ruang.batchInsert');
+    // Route manajemen ruang Search
     Route::get('/admin/ruang/search', [RuangController::class, 'search'])->name('admin.ruang.search');
 
-    // Route manajemen room-booking
-    Route::resource('/admin/room-booking', RoomBookingAdminController::class)->except(['show']);
-
 });
+
+
+//////////////////////////authentication///////////////////////////////////////
 
 // Rute untuk menampilkan login form
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -101,6 +96,4 @@ Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
 
 // Rute untuk menyimpan perubahan password setelah reset
-Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
-
 Route::post('/reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');

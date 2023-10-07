@@ -30,6 +30,11 @@ return [
 
     'disks' => [
 
+        'private' => [
+            'driver' => 'local', // Gunakan driver lokal untuk penyimpanan lokal
+            'root' => storage_path('app/private'), // Tentukan direktori penyimpanan privat
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
