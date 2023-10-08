@@ -2,12 +2,11 @@
 
 namespace Database\Seeders;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 
-class DumyAdminUser extends Seeder
+class DumyAdminUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -21,6 +20,7 @@ class DumyAdminUser extends Seeder
                 'email' => 'admin@admin.com',
                 'password' => Hash::make('admin'), // Ganti dengan password yang aman
                 'role' => 'admin',
+                'is_active' => true,
                 'email_verified_at' => now(),
                 'organization' => 'UPI FPBS',
                 'job_title' => 'Admin',
@@ -34,8 +34,6 @@ class DumyAdminUser extends Seeder
                 'password' => Hash::make('user'), // Ganti dengan password yang aman
                 'role' => 'user',
                 'is_active' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
                 'email_verified_at' => now(),
             ]
         ];

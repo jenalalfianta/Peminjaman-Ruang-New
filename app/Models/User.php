@@ -27,26 +27,26 @@ class User extends Authenticatable implements MustVerifyEmail
         'address',
         'organization',
         'job_title',
-        'verification_token'
+        'verification_token',
+        'email_verified_at',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function ($user) {
+            $user->email_verified_at = now();
+        });
+    }
 }

@@ -3,6 +3,7 @@
 
 <head>
     <!-- ...tag-tag meta lainnya -->
+    <link rel="icon" type="image/png" href="{{ asset('assets/template/sbadmin2/img/favicon-16x16.png') }}" sizes="16x16">
     <title>@yield('title')</title>
     <!-- Link CSS dan font yang umum untuk semua halaman -->
     <link href="{{ asset('assets/template/sbadmin2/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">

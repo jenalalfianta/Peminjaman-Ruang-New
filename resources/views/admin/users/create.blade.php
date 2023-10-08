@@ -36,7 +36,7 @@
                         <label for="role" class="form-label">Role</label>
                         <select class="form-select" id="role" name="role" >
                             <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                            <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User</option>
+                            <option selected value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User</option>
                         </select>
                     </div>
                     <div class="mb-3 form-check">

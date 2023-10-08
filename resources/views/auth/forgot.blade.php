@@ -8,7 +8,7 @@
     }
 @endsection
 
-@section('title', 'Forgot Password')
+@section('title', 'Lupa Password')
 
 @section('content')
 <div class="container">
@@ -46,7 +46,7 @@
                                     <div class="form-group">
                                         <input type="email" class="form-control form-control-user @error('email') is-invalid @enderror"
                                             id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..."
-                                            name="email" value="{{ old('email') }}" required autocomplete="email">
+                                            name="email" value="{{ old('email') }}"  autocomplete="email">
                                         @error('email')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

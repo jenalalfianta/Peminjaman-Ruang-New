@@ -124,15 +124,17 @@ class PenggunaController extends Controller
         $user = User::findOrFail($id);
 
         // Periksa apakah kolom password diisi atau tidak
-        if ($request->has('password')) {
+        if ($request->filled('password')) {
+            // Jika password baru disediakan dalam formulir, update password
             $password = bcrypt($request->input('password'));
         } else {
-            // Jika tidak diisi, gunakan password lama
+            // Jika password tidak disediakan, gunakan password yang sudah ada
             $password = $user->password;
         }
 
         $is_active = $request->has('is_active') ? true : false;
 
+        // Update hanya data yang diubah dalam formulir
         $user->update([
             'name' => $name,
             'password' => $password,

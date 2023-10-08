@@ -12,56 +12,71 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
+
+@if(auth()->check() && auth()->user()->role === 'admin')
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        @if(auth()->check() && auth()->user()->role === 'admin')
-            <a class="nav-link" href="{{ route('admin.dashboard') }}">
-        @else
-            <a class="nav-link" href="{{ route('user.dashboard') }}">
-        @endif
+    <li class="nav-item {{ request()->is('admin/dashboard') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span>Dashboard</span>
+        </a>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <!-- Nav Item - Daftar Permohonan -->
+    <li class="nav-item {{ request()->is('daftar-permohonan') ? 'active' : '' }}">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-folder-open"></i>
-            <span>Daftar Permohonan</span></a>
+            <span>Daftar Permohonan</span>
+        </a>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <!-- Nav Item - Jadwal Ruangan -->
+    <li class="nav-item {{ request()->is('jadwal-ruangan') ? 'active' : '' }}">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-calendar"></i>
-            <span>Jadwal Ruangan</span></a>
+            <span>Jadwal Ruangan</span>
+        </a>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <!-- Nav Item - Manajemen Ruang -->
+    <li class="nav-item {{ request()->is('admin/ruang') || request()->is('admin/ruang/create') || request()->is('admin/ruang/*/edit') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('ruang.index') }}">
             <i class="fas fa-fw fa-building"></i>
-            <span>Manajemen Ruang</span></a>
+            <span>Manajemen Ruang</span>
+        </a>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <!-- Nav Item - Manajemen User -->
+    <li class="nav-item {{ request()->is('admin/users') || request()->is('admin/users/create') || request()->is('admin/users/*/edit') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('users.index') }}">
             <i class="fas fa-fw fa-users"></i>
-            <span>Manajemen Pengguna</span></a>
+            <span>Manajemen User</span>
+        </a>
     </li>
+@endif
+
+
+@if(auth()->check() && auth()->user()->role === 'user')
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item {{ request()->is('user/dashboard') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('user.dashboard') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+@endif
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

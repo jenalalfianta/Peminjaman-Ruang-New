@@ -41,35 +41,35 @@
                             @csrf
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleFirstName"
-                                    placeholder="Nama Lengkap" name="name" required value="{{ old('name') }}">
+                                    placeholder="Nama Lengkap" name="name"  value="{{ old('name') }}">
                                 @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <input type="email" class="form-control form-control-user @error('email') is-invalid @enderror" id="exampleInputEmail"
-                                    placeholder="Email" name="email" required value="{{ old('email') }}">
+                                    placeholder="Email" name="email"  value="{{ old('email') }}">
                                 @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <input type="email" class="form-control form-control-user @error('email_confirmation') is-invalid @enderror"
-                                    id="exampleConfirmEmail" placeholder="Konfirmasi Email" name="email_confirmation" required>
+                                    id="exampleConfirmEmail" placeholder="Konfirmasi Email" name="email_confirmation" >
                                 @error('email_confirmation')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror"
-                                    id="exampleInputPassword" placeholder="Password" name="password" required>
+                                    id="exampleInputPassword" placeholder="Password" name="password" >
                                 @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control form-control-user @error('password_confirmation') is-invalid @enderror"
-                                    id="exampleRepeatPassword" placeholder="Konfirmasi Password" name="password_confirmation" required>
+                                    id="exampleRepeatPassword" placeholder="Konfirmasi Password" name="password_confirmation" >
                                 @error('password_confirmation')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

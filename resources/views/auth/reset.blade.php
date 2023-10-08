@@ -30,16 +30,17 @@
                                 <form class="user" method="POST" action="{{ route('password.update') }}">
                                     @csrf
                                     <input type="hidden" name="token" value="{{ $token }}">
+                                    <input type="hidden" name="email" value="{{ $email }}">
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror"
-                                            id="exampleInputPassword" placeholder="New Password" name="password" required autocomplete="new-password">
+                                            id="exampleInputPassword" placeholder="New Password" name="password"  autocomplete="new-password">
                                         @error('password')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPasswordConfirm" placeholder="Confirm Password" name="password_confirmation" required autocomplete="new-password">
+                                            id="exampleInputPasswordConfirm" placeholder="Confirm Password" name="password_confirmation"  autocomplete="new-password">
                                     </div>
                                     @if(session('status'))
                                         <div class="alert alert-success mt-2" role="alert">
