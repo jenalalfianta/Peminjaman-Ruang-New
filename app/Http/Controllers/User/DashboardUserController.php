@@ -43,4 +43,8 @@ class DashboardUserController extends Controller
         }
     }
 
+    public function jadwal()
+    {
+        return view('user.jadwal.index');
+    }
 }

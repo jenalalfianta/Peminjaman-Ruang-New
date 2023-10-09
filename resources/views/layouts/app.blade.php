@@ -14,6 +14,8 @@
     <style>
         @yield('style');
     </style>
+
+    @yield('custom')
 </head>
 
 <body class="bg-gradient-light">
@@ -105,6 +107,7 @@
     <script src="{{ asset('assets/template/sbadmin2/js/sb-admin-2.min.js') }}"></script>
 
     <!-- Custom JS-->
+    @yield('script')
 
 </body>
 

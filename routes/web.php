@@ -36,9 +36,13 @@ Route::get('/', function () {
 //////////////////////////user//////////////////////////////////////////////
 Route::middleware(['auth', 'web', 'checkRole:user'])->group(function () {
     // Dashboard pengguna
+    Route::get('/user/dashboard', [DashboardUserController::class, 'dashboard'])->name('user.dashboard');
 
     // Logout untuk pengguna
     Route::post('/user/logout', [DashboardUserController::class, 'logout'])->name('user.logout');
+
+    // Jadwal Ruang untuk pengguna
+    Route::get('/user/jadwal', [DashboardUserController::class, 'jadwal'])->name('user.jadwal');
 });
 
 

@@ -40,7 +40,7 @@
     <li class="nav-item {{ request()->is('admin/jadwal') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.jadwal') }}">
             <i class="fas fa-fw fa-calendar"></i>
-            <span>Jadwal Ruangan</span>
+            <span>Jadwal Ruang</span>
         </a>
     </li>
 
@@ -74,6 +74,24 @@
         <a class="nav-link" href="{{ route('user.dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
+        </a>
+    </li>
+
+    <hr class="sidebar-divider my-0">
+    <!-- Nav Item - Daftar Permohonan -->
+    <li class="nav-item {{ request()->is('daftar-permohonan') ? 'active' : '' }}">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-folder-open"></i>
+            <span>Peminjaman Ruang</span>
+        </a>
+    </li>
+
+    <hr class="sidebar-divider my-0">
+    <!-- Nav Item - Jadwal Ruangan -->
+    <li class="nav-item {{ request()->is('user/jadwal') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('user.jadwal') }}">
+            <i class="fas fa-fw fa-calendar"></i>
+            <span>Jadwal Ruang</span>
         </a>
     </li>
 @endif
