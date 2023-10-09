@@ -37,8 +37,8 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Jadwal Ruangan -->
-    <li class="nav-item {{ request()->is('jadwal-ruangan') ? 'active' : '' }}">
-        <a class="nav-link" href="#">
+    <li class="nav-item {{ request()->is('admin/jadwal') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.jadwal') }}">
             <i class="fas fa-fw fa-calendar"></i>
             <span>Jadwal Ruangan</span>
         </a>
@@ -48,8 +48,8 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Manajemen Ruang -->
-    <li class="nav-item {{ request()->is('admin/ruang') || request()->is('admin/ruang/create') || request()->is('admin/ruang/*/edit') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('ruang.index') }}">
+    <li class="nav-item {{ request()->is('admin/room') || request()->is('admin/room/create') || request()->is('admin/room/*/edit') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('room.index') }}">
             <i class="fas fa-fw fa-building"></i>
             <span>Manajemen Ruang</span>
         </a>
@@ -59,7 +59,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Manajemen User -->
-    <li class="nav-item {{ request()->is('admin/users') || request()->is('admin/users/create') || request()->is('admin/users/*/edit') ? 'active' : '' }}">
+    <li class="nav-item {{ (request()->is('admin/users*') && !request()->has('keyword')) || request()->is('admin/users/search*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('users.index') }}">
             <i class="fas fa-fw fa-users"></i>
             <span>Manajemen User</span>

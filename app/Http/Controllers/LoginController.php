@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\RateLimiter;
 
 class LoginController extends Controller
 {
@@ -44,7 +43,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             // Periksa apakah pengguna aktif dan email telah diverifikasi
             $user = Auth::user();
-            if ($user->is_active && $user->email_verified_at) {
+            if ($user->isActive && $user->email_verified_at) {
                 // Jika berhasil dan akun aktif, arahkan pengguna ke halaman dashboard
                 if ($user->role === 'admin') {
                     return redirect()->route('admin.dashboard');

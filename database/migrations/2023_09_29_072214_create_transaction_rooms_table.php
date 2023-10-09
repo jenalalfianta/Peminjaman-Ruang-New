@@ -22,15 +22,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('booking_rooms', function (Blueprint $table) {
+        Schema::create('transaction_rooms', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('booking_id');
+            $table->unsignedBigInteger('transaction_id');
             $table->unsignedBigInteger('room_id');
+            $table->timestamp('start');
+            $table->timestamp('end');
             $table->timestamps();
 
             // Foreign key constraints
-            $table->foreign('booking_id')->references('id')->on('room_bookings')->onDelete('cascade');
-            $table->foreign('room_id')->references('id')->on('ruang')->onDelete('cascade');
+            $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade');
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
         });
     }
 

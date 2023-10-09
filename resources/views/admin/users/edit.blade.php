@@ -41,16 +41,16 @@
                         </select>
                     </div>
                     <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="is_active" name="is_active" {{ old('is_active', $user->is_active) ? 'checked' : '' }} value="1">
-                        <label class="form-check-label" for="is_active">Aktif</label>
+                        <input type="checkbox" class="form-check-input" id="isActive" name="isActive" {{ old('isActive', $user->isActive) ? 'checked' : '' }} value="1">
+                        <label class="form-check-label" for="isActive">Aktif</label>
                     </div>
                     <div class="mb-3">
                         <label for="photo" class="form-label">Foto Profil</label>
                         <input type="file" class="form-control" id="photo" name="photo">
                     </div>
                     <div class="mb-3">
-                        <label for="phone_number" class="form-label">Nomor Telepon</label>
-                        <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ old('phone_number', $user->phone_number) }}">
+                        <label for="phoneNumber" class="form-label">Nomor Telepon</label>
+                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="{{ old('phoneNumber', $user->phoneNumber) }}">
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Alamat</label>
@@ -61,8 +61,8 @@
                         <input type="text" class="form-control" id="organization" name="organization" value="{{ old('organization', $user->organization) }}">
                     </div>
                     <div class="mb-3">
-                        <label for="job_title" class="form-label">Jabatan</label>
-                        <input type="text" class="form-control" id="job_title" name="job_title" value="{{ old('job_title', $user->job_title) }}">
+                        <label for="jobTitle" class="form-label">Jabatan</label>
+                        <input type="text" class="form-control" id="jobTitle" name="jobTitle" value="{{ old('jobTitle', $user->jobTitle) }}">
                     </div>
                     <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                 </form>

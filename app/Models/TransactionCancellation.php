@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BookingCancellation extends Model
+class TransactionCancellation extends Model
 {
     use HasFactory;
-
-    protected $table = 'booking_cancellations';
 
     protected $fillable = [
         'booking_id',
@@ -17,15 +15,15 @@ class BookingCancellation extends Model
         'reason',
     ];
 
-    // Relasi dengan RoomBooking
+    // relasi dengan Room Booking
     public function roomBooking()
     {
         return $this->belongsTo(RoomBooking::class, 'booking_id');
     }
 
-    // Relasi dengan User
+    // relasi dengan User
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 }

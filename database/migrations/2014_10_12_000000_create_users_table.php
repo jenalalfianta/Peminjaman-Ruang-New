@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
@@ -17,13 +15,14 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role',['admin', 'user'])->default('user'); // Role
-            $table->boolean('is_active')->default(true); // Status Aktif
-            $table->string('photo')->nullable(); // Tambahkan kolom foto profil
-            $table->string('phone_number')->nullable(); // Nomor Telepon
-            $table->string('address')->nullable(); // Alamat
-            $table->string('organization')->nullable(); // Unit/Organisasi
-            $table->string('job_title')->nullable(); // Jabatan
+            $table->enum('role',['admin', 'user'])->default('user'); 
+            $table->boolean('isActive')->default(true); 
+            $table->string('phoneNumber')->nullable(); 
+            $table->string('address')->nullable(); 
+            $table->string('photo')->nullable();
+            $table->string('organization')->nullable(); 
+            $table->string('jobTitle')->nullable();
+            $table->string('verification_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

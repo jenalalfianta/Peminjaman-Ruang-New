@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Ruangan')
+@section('title', 'Edit Ruang')
 
 @section('content')
     <div class="container mt-5 mb-5">
                 <div class="card">
                     <div class="card-header">
-                        Edit Ruangan
+                        Edit Ruang
                     </div>
                     <div class="card-body">
                         @if ($errors->any())
@@ -18,36 +18,36 @@
                                 </ul>
                             </div>
                         @endif
-                        <form method="POST" action="{{ route('ruang.update', $ruang->id) }}">
+                        <form method="POST" action="{{ route('room.update', $ruang->id) }}">
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
-                                <label for="kode_ruangan" class="form-label">Kode Ruangan:</label>
-                                <input type="text" class="form-control" id="kode_ruangan" name="kode_ruangan"
-                                    value="{{ $ruang->kode_ruangan }}" readonly>
+                                <label for="code" class="form-label">Kode Ruang:</label>
+                                <input type="text" class="form-control" id="code" name="code"
+                                    value="{{ $ruang->code }}" readonly>
                             </div>
                             <div class="mb-3">
-                                <label for="nama_ruangan" class="form-label">Nama Ruangan:</label>
-                                <input type="text" class="form-control" id="nama_ruangan" name="nama_ruangan"
-                                    value="{{ $ruang->nama_ruangan }}" >
+                                <label for="roomName" class="form-label">Nama Ruang:</label>
+                                <input type="text" class="form-control" id="roomName" name="roomName"
+                                    value="{{ $ruang->roomName }}" >
                             </div>
                             <div class="mb-3">
-                                <label for="lantai_ruangan" class="form-label">Lantai Ruangan:</label>
-                                <input type="text" class="form-control" id="lantai_ruangan" name="lantai_ruangan"
-                                    value="{{ $ruang->lantai_ruangan }}" >
+                                <label for="floor" class="form-label">Lantai Ruang:</label>
+                                <input type="text" class="form-control" id="floor" name="floor"
+                                    value="{{ $ruang->floor }}" >
                             </div>
                             <div class="mb-3">
-                                <label for="kapasitas" class="form-label">Kapasitas Ruangan:</label>
-                                <input type="number" class="form-control" id="kapasitas" name="kapasitas"
-                                    value="{{ $ruang->kapasitas }}" >
+                                <label for="capacity" class="form-label">Kapasitas Ruang:</label>
+                                <input type="number" class="form-control" id="capacity" name="capacity"
+                                    value="{{ $ruang->capacity }}" >
                             </div>
                             <div class="mb-3">
-                                <label for="deskripsi" class="form-label">Deskripsi Ruangan:</label>
-                                <textarea class="form-control" id="deskripsi" name="deskripsi">{{ $ruang->deskripsi }}</textarea>
+                                <label for="description" class="form-label">Deskripsi Ruang:</label>
+                                <textarea class="form-control" id="description" name="description">{{ $ruang->description }}</textarea>
                             </div>
                             <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" value="1" id="aktif" name="aktif" {{ $ruang->aktif ? 'checked' : '' }}>
-                                <label class="form-check-label" for="aktif">
+                                <input class="form-check-input" type="checkbox" value="1" id="isActive" name="isActive" {{ $ruang->isActive ? 'checked' : '' }}>
+                                <label class="form-check-label" for="isActive">
                                     Aktif
                                 </label>
                             </div>

@@ -11,24 +11,19 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, HasApiTokens;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
         'password',
         'role',
-        'is_active',
-        'photo',
-        'phone_number',
+        'isActive',
+        'phoneNumber',
         'address',
+        'photo',
         'organization',
-        'job_title',
+        'jobTitle',
         'verification_token',
-        'email_verified_at',
     ];
 
     protected $hidden = [
@@ -49,4 +44,17 @@ class User extends Authenticatable implements MustVerifyEmail
             $user->email_verified_at = now();
         });
     }
+
+    // relasi dengan transaction
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    // relasi dengan transactionCancellation
+    public function transactionCancellation()
+    {
+        return $this->hasMany(TransactionCancellation::class);
+    }
+    
 }

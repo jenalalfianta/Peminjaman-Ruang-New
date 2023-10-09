@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 
-class DumyAdminUserSeeder extends Seeder
+class DummyAdminUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -20,10 +20,10 @@ class DumyAdminUserSeeder extends Seeder
                 'email' => 'admin@admin.com',
                 'password' => Hash::make('admin'), // Ganti dengan password yang aman
                 'role' => 'admin',
-                'is_active' => true,
+                'isActive' => true,
                 'email_verified_at' => now(),
                 'organization' => 'UPI FPBS',
-                'job_title' => 'Admin',
+                'jobTitle' => 'Admin',
                 'address' => 'Jl. Setiabudhi No 229, Isola, Sukasari, Bandung, Indonesia',
             ],
 
@@ -33,7 +33,7 @@ class DumyAdminUserSeeder extends Seeder
                 'email' => 'user@user.com',
                 'password' => Hash::make('user'), // Ganti dengan password yang aman
                 'role' => 'user',
-                'is_active' => true,
+                'isActive' => true,
                 'email_verified_at' => now(),
             ]
         ];

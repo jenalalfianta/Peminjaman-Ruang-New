@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Buat Pengguna Baru')
+@section('title', 'Buat User Baru')
 
 @section('content')
     <div class="container mt-5 mb-5">
         <div class="card">
             <div class="card-header">
-                Buat Pengguna Baru
+                Buat User Baru
             </div>
             <div class="card-body">
                 @if ($errors->any())

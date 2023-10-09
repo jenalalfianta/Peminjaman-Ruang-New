@@ -8,7 +8,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-class PenggunaController extends Controller
+class UserController extends Controller
 {
     public function index()
     {
@@ -28,36 +28,45 @@ class PenggunaController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:8',
             'role' => ['required', Rule::in(['admin', 'user'])],
-            'is_active' => 'nullable|boolean',
+            'isActive' => 'nullable|boolean',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'phone_number' => 'nullable|string|max:20',
+            'phoneNumber' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:255',
             'organization' => 'nullable|string|max:255',
-            'job_title' => 'nullable|string|max:255',
+            'jobTitle' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Ubah email menjadi lowercase
-        $email = Str::lower($request->input('email'));
-
-        // Ubah nama menjadi Title Case
-        $name = Str::title($request->input('name'));
-
-        // Simpan data ke dalam database
-        User::create([
-            'name' => $name,
-            'email' => $email,
+        $data = [
+            'name' => Str::title($request->input('name')),
+            'email' => Str::lower($request->input('email')),
             'password' => bcrypt($request->input('password')),
             'role' => $request->input('role'),
-            'is_active' => $request->has('is_active'),
-            'phone_number' => $request->input('phone_number'),
+            'isActive' => $request->has('isActive'),
+            'phoneNumber' => $request->input('phoneNumber'),
             'address' => $request->input('address'),
             'organization' => $request->input('organization'),
-            'job_title' => $request->input('job_title'),
-        ]);
+            'jobTitle' => $request->input('jobTitle'),
+        ];
+
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            if ($file->getSize() > 2048 * 1024) {
+                return redirect()->back()->withErrors(['photo' => 'Ukuran file harus kurang dari 2MB.'])->withInput();
+            }
+
+            $randomName = Str::random(20);
+            $ext = $file->getClientOriginalExtension();
+            $uniqueFileName = $randomName . '.' . $ext;
+
+            $file->storeAs('private/photos', $uniqueFileName);
+            $data['photo'] = $uniqueFileName;
+        }
+
+        User::create($data);
 
         return redirect()->route('users.index')->with('success', 'Pengguna berhasil ditambahkan.');
     }
@@ -68,8 +77,8 @@ class PenggunaController extends Controller
         $users = User::where('name', 'like', "%$keyword%")
                      ->orWhere('email', 'like', "%$keyword%")
                      ->get();
-
-        return view('admin.users.index', compact('users'));
+    
+        return view('admin.users.index', compact('users', 'keyword'));
     }
 
     public function edit($id)
@@ -84,12 +93,12 @@ class PenggunaController extends Controller
             'name' => 'required|string|max:255',
             'password' => 'nullable|string|min:8',
             'role' => ['required', Rule::in(['admin', 'user'])],
-            'is_active' => 'nullable|boolean',
+            'isActive' => 'nullable|boolean',
             'photo' => 'nullable|mimes:jpeg,png,jpg,gif|max:2048',
-            'phone_number' => 'nullable|string|max:20',
+            'phoneNumber' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:255',
             'organization' => 'nullable|string|max:255',
-            'job_title' => 'nullable|string|max:255',
+            'jobTitle' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -132,18 +141,18 @@ class PenggunaController extends Controller
             $password = $user->password;
         }
 
-        $is_active = $request->has('is_active') ? true : false;
+        $isActive = $request->has('isActive') ? true : false;
 
         // Update hanya data yang diubah dalam formulir
         $user->update([
             'name' => $name,
             'password' => $password,
             'role' => $request->input('role'),
-            'is_active' => $is_active,
-            'phone_number' => $request->input('phone_number'),
+            'isActive' => $isActive,
+            'phoneNumber' => $request->input('phoneNumber'),
             'address' => $request->input('address'),
             'organization' => $request->input('organization'),
-            'job_title' => $request->input('job_title'),
+            'jobTitle' => $request->input('jobTitle'),
         ]);
 
         return redirect()->route('users.index')->with('success', 'Pengguna berhasil diperbarui.');

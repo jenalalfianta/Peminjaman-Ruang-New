@@ -8,7 +8,7 @@
 
         <form action="{{ route('admin.users.search') }}" method="GET" class="mb-3">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Cari user..." name="keyword">
+                <input type="text" class="form-control" placeholder="Cari user..." name="keyword" value="{{ old('keyword', $keyword ?? '') }}">
                 <button class="btn btn-primary" type="submit">Cari</button>
             </div>
         </form>
@@ -24,22 +24,22 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Email</th>
                     <th scope="col">Role</th>
                     <th scope="col">Aktif</th>
+                    <th scope="col">Nomor HP</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($users as $user)
                     <tr>
-                        <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->role }}</td>
-                        <td>{{ $user->is_active ? 'Aktif' : 'Tidak Aktif' }}</td>
+                        <td>{{ $user->isActive ? 'Aktif' : 'Tidak Aktif' }}</td>
+                        <td>{{ $user->phoneNumber }}</td>
                         <td>
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">Edit</a>
                             <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">

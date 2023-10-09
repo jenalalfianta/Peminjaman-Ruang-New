@@ -5,21 +5,17 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
-class UserController extends Controller
+class DashboardUserController extends Controller
 {
     public function dashboard()
     {
         $user = Auth::user();
-
-        // Kirimkan variabel $user ke tampilan Blade
         return view('user.dashboard', compact('user'));
     }
 
     public function logout(Request $request)
     {
         $guard = Auth::guard('web');
-
-        // Logout pengguna dari sesi
         $guard->logout();
 
         // Invalidasi sesi pengguna
