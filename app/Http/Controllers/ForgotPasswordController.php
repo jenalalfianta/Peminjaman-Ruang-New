@@ -11,6 +11,15 @@ class ForgotPasswordController extends Controller
 
     public function showLinkRequestForm()
     {
+        if (auth()->check()) {
+            $role = auth()->user()->role;
+            if ($role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            } elseif ($role === 'user') {
+                return redirect()->route('user.dashboard');
+            }
+        }
+
         return view('auth.forgot');
     }
 
@@ -33,6 +42,16 @@ class ForgotPasswordController extends Controller
 
     public function showResetForm(Request $request)
     {
+
+        if (auth()->check()) {
+            $role = auth()->user()->role;
+            if ($role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            } elseif ($role === 'user') {
+                return redirect()->route('user.dashboard');
+            }
+        }
+
         $token = $request->route('token'); // Ambil token dari URL
         $email = $request->email; // Ambil email dari URL
 

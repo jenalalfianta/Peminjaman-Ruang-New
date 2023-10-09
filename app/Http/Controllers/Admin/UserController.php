@@ -50,6 +50,7 @@ class UserController extends Controller
             'address' => $request->input('address'),
             'organization' => $request->input('organization'),
             'jobTitle' => $request->input('jobTitle'),
+            'email_verified_at' => now()
         ];
 
         if ($request->hasFile('photo')) {
@@ -77,7 +78,7 @@ class UserController extends Controller
         $users = User::where('name', 'like', "%$keyword%")
                      ->orWhere('email', 'like', "%$keyword%")
                      ->get();
-    
+
         return view('admin.users.index', compact('users', 'keyword'));
     }
 

@@ -36,15 +36,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    public static function boot()
-    {
-        parent::boot();
-
-        self::creating(function ($user) {
-            $user->email_verified_at = now();
-        });
-    }
-
     // relasi dengan transaction
     public function transaction()
     {
@@ -56,5 +47,5 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(TransactionCancellation::class);
     }
-    
+
 }
