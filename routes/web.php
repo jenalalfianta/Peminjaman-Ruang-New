@@ -30,8 +30,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user/photo/{filename}', [DashboardUserController::class, 'getPhoto'])->name('user.photo');
 
 Route::get('/', function () {
-    return redirect('/login');
-});
+    return view('index');
+})->name('beranda');
 
 //////////////////////////user//////////////////////////////////////////////
 Route::middleware(['auth', 'web', 'checkRole:user'])->group(function () {
